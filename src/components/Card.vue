@@ -1,20 +1,19 @@
 <template>
-
-      <div class="card" :class="city.size" @mouseover="mouseover" @mouseleave="mouseleave">
-        <div class="card_content" :class="hovering && (city.size !== 'size-4') ? 'card_content_hover' : ''" :style="backgroundStyles">
-          <p style="text-transform: uppercase; margin: 0;">{{city.country}}</p>
-          <h2 style="text-transform: uppercase; margin-top: 0;">{{city.name}}</h2>
-          <p class="description" style="transition: ease-in-out 2s;" v-if="(city.size === 'size-4')">{{city.description}}</p> 
-            <transition name="slide-fade">
-              <div v-if="hovering && (city.size !== 'size-4')">
-                <p class="description" style="transition: ease-in-out 2s;">{{city.description}}</p> 
-                <button class="btn">
-                  Explore More
-                </button>
-              </div>
-            </transition>
-        </div>
-      </div>
+  <div class="card" :class="city.size" @mouseover="mouseover" @mouseleave="mouseleave">
+    <div class="card_content" :class="hovering && (city.size !== 'size-4') ? 'card_content_hover' : ''" :style="backgroundStyles">
+      <p style="text-transform: uppercase; margin: 0;">{{city.country}}</p>
+      <h2 style="text-transform: uppercase; margin-top: 0;">{{city.name}}</h2>
+      <p class="description" style="transition: ease-in-out 2s;" v-if="(city.size === 'size-4')">{{city.description}}</p> 
+        <transition name="slide-fade">
+          <div v-if="hovering && (city.size !== 'size-4')">
+            <p class="description" style="transition: ease-in-out 2s;">{{city.description}}</p> 
+            <button class="btn">
+              Explore More
+            </button>
+          </div>
+        </transition>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -31,7 +30,7 @@ export default {
   },
   computed: {
     backgroundStyles: function(){
-      if(this.city.image_link){
+      if(this.city.image_link && !this.city.flickr){
         return{
           '--back-image' : 'url(' + require('@/assets/' + this.city.image_link) + ')',
           '--background_hover' : 'linear-gradient(-45deg, rgba(65, 65, 65, 0.5),rgba(65, 65, 65, 0.5)), url(' + require('@/assets/' + this.city.image_link) + ')'
@@ -130,7 +129,7 @@ export default {
   height: 100%;
   border-radius: 0.25rem;
   box-shadow: 0 20px 40px -14px rgba(0, 0, 0, 0.25);
-  overflow: scroll;
+  overflow: scroll hidden;
   display: flex;
   flex-direction: column;
   justify-content: center;

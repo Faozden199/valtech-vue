@@ -26,7 +26,8 @@ export default {
                 tags: 'valtech',
                 size: 'size-4',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
-                image_link: 'copenhague.jpg'
+                image_link: 'copenhague.jpg',
+                flickr: false
             },
             { 
                 country: 'Italy',
@@ -34,7 +35,8 @@ export default {
                 tags: 'Venice',
                 size: 'size-2',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
-                image_link: 'venise.jpg'
+                image_link: 'venise.jpg',
+                flickr: false
             },
             { 
                 country: 'Germany',
@@ -42,7 +44,8 @@ export default {
                 tags: 'Berlin',
                 size: 'size-1',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
-                image_link: 'berlin.jpg'
+                image_link: 'berlin.jpg',
+                flickr: false
             },
             { 
                 country: 'Spain',
@@ -50,7 +53,8 @@ export default {
                 tags: 'Barcelona',
                 size: 'size-1',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
-                image_link: 'barcelone.jpg'
+                image_link: 'barcelone.jpg',
+                flickr: false
             },
             { 
                 country: 'France',
@@ -58,7 +62,8 @@ export default {
                 tags: 'Paris',
                 size: 'size-1',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
-                image_link: ''
+                image_link: '',
+                flickr: false
             },
             { 
                 country: 'Netherlands',
@@ -74,7 +79,8 @@ export default {
                 tags: 'London',
                 size: 'size-2',
                 description: 'Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua',
-                image_link: 'londre.jpg'
+                image_link: 'londre.jpg',
+                flickr: false
             }
             ],
             loading: true
@@ -82,11 +88,12 @@ export default {
     },
     mounted() {
         this.cities.forEach(city => {
-            if(city.image_link){
+            if(!city.image_link){
                 console.log("Pas de lien renseigné, fetching launched")
                 this.fetchImages(city.tags)
                     .then((response) => {
                         city.image_link = response.data.photos.photo[0].url_n
+                        city.flickr = true;
                     }).catch(error => {
                     this.errorMessage = error;
                     console.error("Network error", error);
